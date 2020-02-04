@@ -16,9 +16,11 @@ export default function Carlist() {
   }
 
   const deleteCar = (link) => {
-    fetch(link, {method: 'DELETE'})
-    .then(response => fetchData())
-    .catch(err => console.error(err))
+    if (window.confirm('Are you sure?')) {
+      fetch(link, {method: 'DELETE'})
+      .then(response => fetchData())
+      .catch(err => console.error(err))
+    }
   }
 
   const columns = [
