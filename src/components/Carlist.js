@@ -44,10 +44,6 @@ export default function Carlist() {
       accessor: 'fuel',
     },
     {
-      Header: 'Fuel',
-      accessor: 'fuel',
-    },
-    {
       Header: 'Year',
       accessor: 'year',
     },
