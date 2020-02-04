@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactTable from 'react-table-v6';
 import 'react-table-v6/react-table.css';
+import Button from '@material-ui/core/Button';
 
 export default function Carlist() {
   const [cars, setCars] = useState([]);
@@ -51,7 +52,10 @@ export default function Carlist() {
     },
     {
       accessor: '_links.self.href',
-      Cell: row => <button onClick={() => deleteCar(row.value)}>Delete</button>
+      filterable: false,
+      sortable: false,
+      width: 100,
+      Cell: row => <Button color="secondary" size="small" onClick={() => deleteCar(row.value)}>Delete</Button>
     }
   ]
 
