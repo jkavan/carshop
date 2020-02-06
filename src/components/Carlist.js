@@ -3,6 +3,7 @@ import ReactTable from 'react-table-v6';
 import 'react-table-v6/react-table.css';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+import Addcar from './Addcar';
 
 export default function Carlist() {
   const [cars, setCars] = useState([]);
@@ -25,6 +26,19 @@ export default function Carlist() {
       setOpen(true);
     }
   }
+
+  const saveCar = (car) => {
+    fetch('https://carstockrest.herokuapp.com/cars', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(car)
+    })
+    .then(res => fetchData())
+    .catch(err => console.error(err))
+  }
+
 
   const columns = [
     {
@@ -62,6 +76,7 @@ export default function Carlist() {
 
   return (
     <div>
+      <Addcar saveCar={saveCar} />
       <ReactTable filterable={true} data={cars} columns={columns} />
       <Snackbar
         open={open}
