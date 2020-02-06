@@ -4,6 +4,7 @@ import 'react-table-v6/react-table.css';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import Addcar from './Addcar';
+import Editcar from './Editcar';
 
 export default function Carlist() {
   const [cars, setCars] = useState([]);
@@ -39,6 +40,15 @@ export default function Carlist() {
     .catch(err => console.error(err))
   }
 
+  const updateCar = (car, link) => {
+    fetch(link, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify(car)
+    })
+    .then(res => fetchData())
+    .catch(err => console.error(err))
+  }
 
   const columns = [
     {
@@ -69,8 +79,15 @@ export default function Carlist() {
       accessor: '_links.self.href',
       filterable: false,
       sortable: false,
+      width: 80,
+      Cell: row => <Editcar updateCar={updateCar} car={row.original} />
+    },
+    {
+      accessor: '_links.self.href',
+      filterable: false,
+      sortable: false,
       width: 100,
-      Cell: row => <Button color="secondary" size="small" onClick={() => deleteCar(row.value)}>Delete</Button>
+      Cell: ({value}) => <Button variant="outlined" color="secondary" size="small" onClick={() => deleteCar(value)}>Delete</Button>
     }
   ]
 
